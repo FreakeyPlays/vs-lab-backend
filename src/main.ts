@@ -1,3 +1,4 @@
+import { VersioningType } from '@nestjs/common/enums';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder } from '@nestjs/swagger';
 import { SwaggerModule } from '@nestjs/swagger/dist';
@@ -7,6 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('api');
+  app.enableVersioning({ type: VersioningType.URI });
 
   const config = new DocumentBuilder()
     .setTitle('ToDo')
