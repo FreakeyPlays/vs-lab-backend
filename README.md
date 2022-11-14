@@ -68,13 +68,13 @@ npm run start:dev
 ## ⛓️ - API
 
 <details open>
-<summary><h3>🔗 - POST /api/v1/todo</h3></summary>
+<summary><h3>🔗 - POST /todos</h3></summary>
 
 ### 📥 - Request
 
 ```bash
 curl -X 'POST' \
-  '${BASE_URL}/api/v1/todo' \
+  '${BASE_URL}/todos' \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -95,13 +95,13 @@ curl -X 'POST' \
 </details>
 
 <details>
-<summary><h3>🔗 - GET /api/v1/todo</h3></summary>
+<summary><h3>🔗 - GET /todos</h3></summary>
 
 ### 📥 - Request
 
 ```bash
 curl -X 'GET' \
-  '${BASE_URL}/api/v1/todo' \
+  '${BASE_URL}/todos' \
   -H 'accept: */*'
 ```
 
@@ -120,13 +120,13 @@ curl -X 'GET' \
 </details>
 
 <details>
-<summary><h3>🔗 - PUT /api/v1/todo</h3></summary>
+<summary><h3>🔗 - PUT /todos</h3></summary>
 
 ### 📥 - Request
 
 ```bash
 curl -X 'PUT' \
-  '${BASE_URL}/api/v1/todo' \
+  '${BASE_URL}/todos' \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -148,13 +148,79 @@ curl -X 'PUT' \
 </details>
 
 <details>
-<summary><h3>🔗 - DELETE /api/v1/todo/{identifier}</h3></summary>
+<summary><h3>🔗 - DELETE /todos</h3></summary>
 
 ### 📥 - Request
 
 ```bash
 curl -X 'DELETE' \
-  '${BASE_URL}/api/v1/todo/${ID}' \
+  '${BASE_URL}/todos' \
+  -H 'accept: */*'
+```
+
+### 📤 - Response
+
+```js
+{
+  "raw": Array,
+  "affected": Number
+}
+```
+
+</details>
+
+<details>
+<summary><h3>🔗 - POST /todos/{todo}</h3></summary>
+
+### 📥 - Request
+
+```bash
+curl -X 'DELETE' \
+  '${BASE_URL}/todos/${todo}' \
+  -H 'accept: */*'
+```
+
+### 📤 - Response
+
+```js
+{
+  "raw": Array,
+  "affected": Number
+}
+```
+
+</details>
+
+<details>
+<summary><h3>🔗 - GET /todos/{todo}</h3></summary>
+
+### 📥 - Request
+
+```bash
+curl -X 'DELETE' \
+  '${BASE_URL}/todos/${todo}' \
+  -H 'accept: */*'
+```
+
+### 📤 - Response
+
+```js
+{
+  "todo": String,
+  "priority": Number
+}
+```
+
+</details>
+
+<details>
+<summary><h3>🔗 - DELETE /todos/{todo}</h3></summary>
+
+### 📥 - Request
+
+```bash
+curl -X 'DELETE' \
+  '${BASE_URL}/todos/${todo}' \
   -H 'accept: */*'
 ```
 
