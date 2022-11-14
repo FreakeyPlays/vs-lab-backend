@@ -7,9 +7,6 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.setGlobalPrefix('api');
-  app.enableVersioning({ type: VersioningType.URI });
-
   const config = new DocumentBuilder()
     .setTitle('ToDo')
     .setDescription('The ToDo-Api from the VS Lab.')

@@ -15,8 +15,16 @@ export class TodoService {
     return this.todoRepository.save<Todo>(todo);
   }
 
+  async createDefaultTodo(todo: string): Promise<Todo> {
+    return this.todoRepository.save({ todo });
+  }
+
   async getAllTodos(): Promise<Todo[]> {
     return this.todoRepository.find();
+  }
+
+  async getTodo(todo: string): Promise<Todo> {
+    return this.todoRepository.findOneBy({ todo });
   }
 
   async updateTodo(todo: T_Todo): Promise<UpdateResult> {

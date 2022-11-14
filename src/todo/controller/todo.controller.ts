@@ -1,10 +1,9 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Param } from '@nestjs/common';
 import {
   Body,
   Delete,
   Get,
   Inject,
-  Param,
   Post,
   Put,
 } from '@nestjs/common/decorators';
@@ -22,7 +21,7 @@ import { T_Todo } from '../models/todo.interface';
 import { TodoService } from '../service/todo.service';
 
 @ApiTags('todo')
-@Controller({ path: 'todo', version: '1' })
+@Controller({ path: 'todos' })
 export class TodoController {
   @Inject(TodoService)
   private readonly service: TodoService;
@@ -51,12 +50,30 @@ export class TodoController {
   }
 
   @ApiOperation({
+    summary: 'Create ToDo with content from Path and Default Priority of 2',
+  })
+  @ApiCreatedResponse({ description: 'ToDo was Created' })
+  @Post('/:todo')
+  public createDefaultTodo(@Param('todo') todo: string): Promise<T_Todo> {
+    return this.service.createDefaultTodo(todo);
+  }
+
+  @ApiOperation({
     summary: 'Returns all ToDos',
   })
   @ApiOkResponse({ description: 'All ToDos are Returned' })
   @Get()
   public getAllTodos(): Promise<T_Todo[]> {
     return this.service.getAllTodos();
+  }
+
+  @ApiOperation({
+    summary: 'Return ToDo specified in Path',
+  })
+  @ApiOkResponse({ description: 'ToDo was Returned' })
+  @Get('/:todo')
+  public getTodo(@Param('todo') todo: string): Promise<T_Todo> {
+    return this.service.getTodo(todo);
   }
 
   @ApiBody({
@@ -83,14 +100,25 @@ export class TodoController {
     return this.service.updateTodo(todo);
   }
 
+  @ApiOperation({ summary: 'Deletes ToDo with content from Body.' })
+  @ApiOkResponse({ description: 'ToDo was Deleted' })
+  @ApiAcceptedResponse({ description: 'ToDo will be Deleted' })
+  @ApiNoContentResponse({
+    description: 'ToDo was Deleted, but got no Response',
+  })
+  @Delete()
+  public deleteTodo(@Body() todo: T_Todo): Promise<DeleteResult> {
+    return this.service.deleteTodo(todo.todo);
+  }
+
   @ApiOperation({ summary: 'Deletes ToDo by ID from Path.' })
   @ApiOkResponse({ description: 'ToDo was Deleted' })
   @ApiAcceptedResponse({ description: 'ToDo will be Deleted' })
   @ApiNoContentResponse({
     description: 'ToDo was Deleted, but got no Response',
   })
-  @Delete('/:identifier')
-  public deleteTodo(@Param('identifier') todo: string): Promise<DeleteResult> {
+  @Delete('/:todo')
+  public deleteTodoByPath(@Param('todo') todo: string): Promise<DeleteResult> {
     return this.service.deleteTodo(todo);
   }
 }
