@@ -22,7 +22,7 @@ import { T_Todo } from '../models/todo.interface';
 import { TodoService } from '../service/todo.service';
 
 @ApiTags('todo')
-@Controller({ path: 'todo', version: '1' })
+@Controller({ path: 'todos' })
 export class TodoController {
   @Inject(TodoService)
   private readonly service: TodoService;
